@@ -121,7 +121,7 @@
         android:backgroundTint="#1AD1EA"
         android:ems="10"
         android:inputType="date"
-        android:text="DD/MM/YY"
+        android:text="DD/MM/YYYY"
         android:textColor="#DC3097"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
