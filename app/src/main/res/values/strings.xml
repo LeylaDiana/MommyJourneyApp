@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MommyJourney App</string>
+
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Languages">
+        <item>2/2/2022</item>
+        <item>5/5/2022</item>
+        <item>25/5/2022</item>
+        <item>26/7/2022</item>
+
+    </string-array>
 </resources>
