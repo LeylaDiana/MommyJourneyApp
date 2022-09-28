@@ -11,8 +11,8 @@ class PregnantMother : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregnant_mother)
 
-        findViewById<TextView>(R.id.button4)
-        val button = findViewById(R.id.button4) as Button
+        findViewById<TextView>(R.id.Login)
+        val button = findViewById(R.id.Login) as Button
         button.setOnClickListener {
             val intent = Intent(this, UserDashboard::class.java)
             startActivity(intent)
