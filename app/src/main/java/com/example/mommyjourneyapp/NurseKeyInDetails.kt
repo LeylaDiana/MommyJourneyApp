@@ -1,12 +1,10 @@
 package com.example.mommyjourneyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 
 class NurseKeyInDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,17 +17,23 @@ class NurseKeyInDetails : AppCompatActivity() {
         // access the spinner
         val spinner = findViewById<Spinner>(R.id.patientname)
         if (spinner != null) {
-            val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, patientname)
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item, patientname
+            )
             spinner.adapter = adapter
 
             spinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
-                    Toast.makeText(this@NurseKeyInDetails,
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+                    Toast.makeText(
+                        this@NurseKeyInDetails,
                         getString(R.string.selected_patient) + " " +
-                                "" + patientname[position], Toast.LENGTH_SHORT).show()
+                                "" + patientname[position], Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -37,5 +41,13 @@ class NurseKeyInDetails : AppCompatActivity() {
                 }
             }
         }
+        findViewById<TextView>(R.id.Next)
+        val ViewPregnancyDetails = findViewById(R.id.Next) as TextView
+        ViewPregnancyDetails.setOnClickListener {
+            val intent = Intent(this, NurseKeyInUrineWeightBP::class.java)
+            startActivity(intent)
+
+
+        }
     }
-    }
+}
