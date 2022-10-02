@@ -40,14 +40,16 @@ class NurseKeyInDetails : AppCompatActivity() {
                     // write code to perform some action
                 }
             }
-        }
-        findViewById<TextView>(R.id.Next)
-        val ViewPregnancyDetails = findViewById(R.id.Next) as TextView
-        ViewPregnancyDetails.setOnClickListener {
-            val intent = Intent(this, NurseKeyInUrineWeightBP::class.java)
-            startActivity(intent)
 
 
+            findViewById<TextView>(R.id.next)
+            val ViewPregnancyDetails = findViewById(R.id.next) as Button
+            ViewPregnancyDetails.setOnClickListener {
+                val intent = Intent(this, NurseKeyInUrineWeightBP::class.java)
+                startActivity(intent)
+
+
+            }
         }
     }
 }

@@ -3,6 +3,8 @@
 
     <string name="selected_item">Selected date:</string>
     <string name="selected_patient">Selected Patient :</string>
+    <string name ="selected_urinecolor">Selected Urine Color :</string>
+    <string name ="selected_bplevel">Selected BP Level :</string>
     <string-array name="Languages">
         <item>2/2/2022</item>
         <item>5/5/2022</item>
@@ -18,5 +20,20 @@
         <item>Raihan</item>
 
 
+    </string-array>
+
+    <string-array name="UrineColor">
+        <item>Normal</item>
+        <item>Yelllowish</item>
+        <item>Bloody</item>
+        <item>Purple</item>
+    </string-array>
+
+    <string-array name="BPLevel">
+        <item>Normal</item>
+        <item>High</item>
+        <item>Low</item>
+        <item>Explosive</item>
+        <item>Ice</item>
     </string-array>
 </resources>

@@ -85,7 +85,7 @@
         android:id="@+id/NewUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New User? Register Here"
+        android:text="New Mother? Register Here"
         android:textColor="#A34BA0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
