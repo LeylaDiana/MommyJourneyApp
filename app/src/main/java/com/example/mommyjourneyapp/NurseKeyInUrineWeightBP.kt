@@ -1,12 +1,10 @@
 package com.example.mommyjourneyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 
 class NurseKeyInUrineWeightBP : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,11 +63,16 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
-                        // write code to perform some action
+
                     }
                 }
             }
-
+        }
+        findViewById<TextView>(R.id.Next)
+        val NurseKeyInUrineWeightBP = findViewById(R.id.Next) as Button
+        NurseKeyInUrineWeightBP.setOnClickListener {
+            val intent = Intent(this, AddinUltrascan::class.java)
+            startActivity(intent)
         }
     }
 }

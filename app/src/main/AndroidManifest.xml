@@ -14,6 +14,9 @@
         android:theme="@style/Theme.HelloWorldApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddinUltrascan"
+            android:exported="false" />
+        <activity
             android:name=".NurseKeyInUrineWeightBP"
             android:exported="false" />
         <activity
