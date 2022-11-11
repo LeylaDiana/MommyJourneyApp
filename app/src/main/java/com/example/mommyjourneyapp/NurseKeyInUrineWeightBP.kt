@@ -68,11 +68,5 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
                 }
             }
         }
-        findViewById<TextView>(R.id.Next)
-        val NurseKeyInUrineWeightBP = findViewById(R.id.Next) as Button
-        NurseKeyInUrineWeightBP.setOnClickListener {
-            val intent = Intent(this, AddinUltrascan::class.java)
-            startActivity(intent)
-        }
     }
 }
