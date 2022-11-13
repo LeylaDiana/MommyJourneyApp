@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "386711986893",
+    "project_id": "mommyjourney-9850c",
+    "storage_bucket": "mommyjourney-9850c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386711986893:android:657def7b1fa61640703f84",
+        "android_client_info": {
+          "package_name": "com.example.mommyjourneyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386711986893-ll3brnj05rfsb06fqios4c8red1belut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzOACOGdx7FcgRypqPJpQsKs4_QIQwDgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386711986893-ll3brnj05rfsb06fqios4c8red1belut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
