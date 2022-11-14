@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.NewUser)
-        val NewUser = findViewById(R.id.NewUser) as TextView
-        NewUser.setOnClickListener {
+        val MainActivity = findViewById(R.id.NewUser) as TextView
+        MainActivity.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
 
 
 

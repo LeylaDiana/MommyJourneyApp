@@ -1,60 +1,83 @@
 package com.example.mommyjourneyapp
 
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-
-val email="@+id/email"
-val password="@+id/password"
-
 
 
 class Register : AppCompatActivity() {
+
+   private lateinit var etEmail: EditText
+  private  lateinit var etConfPass: EditText
+   private lateinit var etPass: EditText
+    private lateinit var btnSignUp: Button
+   private lateinit var tvRedirectLogin: TextView
+
+
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register2)
-        auth = Firebase.auth
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
 
+        auth = FirebaseAuth.getInstance()
+        etEmail = findViewById(R.id.etEmailAddress)
+        etConfPass = findViewById(R.id.etConSPassword)
+        etPass = findViewById(R.id.etEmailAddress)
+        btnSignUp = findViewById(R.id.btnLogin)
 
+        btnSignUp.setOnClickListener {
+            signUpUser()
+        }
+        // switching from signUp Activity to Login Activity
+        tvRedirectLogin.setOnClickListener {
+            val intent = Intent(this, PregnantMother::class.java)
+            startActivity(intent)
+        }
 
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+    }
 
-                }
+    private fun signUpUser() {
+        val email = etEmail.text.toString()
+        val pass = etPass.text.toString()
+        val confirmPassword = etConfPass.text.toString()
+
+        // check pass
+        if (email.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
+            Toast.makeText(this, "Email and Password can't be blank", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (pass != confirmPassword) {
+            Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        // If all credential are correct
+        // We call createUserWithEmailAndPassword
+        // using auth object and pass the
+        // email and pass in it.
+        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
+            if (it.isSuccessful) {
+                Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
             }
-        findViewById<TextView>(R.id.register)
-        val button = findViewById(R.id.register) as Button
-        button.setOnClickListener {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-
-
+        }
+    }
 }
+
+
+
+
 
 
 

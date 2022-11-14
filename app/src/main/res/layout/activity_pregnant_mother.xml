@@ -55,16 +55,17 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/Login"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#0DB110"
         android:text="LOGIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <TextView
         android:id="@+id/textView2"
@@ -79,7 +80,7 @@
         app:layout_constraintVertical_bias="0.671" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/etEmailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -93,7 +94,7 @@
         app:layout_constraintVertical_bias="0.744" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -104,7 +105,15 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.825" />
+
+    <TextView
+        android:id="@+id/tvRedirectSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't Have an Account Register Here"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="633dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
