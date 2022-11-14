@@ -23,9 +23,9 @@ class PregnantMother : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregnant_mother)
         tvRedirectSignUp = findViewById(R.id.tvRedirectSignUp)
-        btnLogin = findViewById(R.id.btnLogin)
-        etEmail = findViewById(R.id.etEmailAddress)
-        etPass = findViewById(R.id.etPassword)
+        btnLogin = findViewById(R.id.btnSSigned)
+        etEmail = findViewById(R.id.EmailAdressSignUp)
+        etPass = findViewById(R.id.etSPassword)
 
         // initialising Firebase auth object
         auth = FirebaseAuth.getInstance()

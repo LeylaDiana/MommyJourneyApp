@@ -11,8 +11,8 @@ class Nurse : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse)
 
-        findViewById<TextView>(R.id.btnLogin)
-        val button = findViewById(R.id.btnLogin) as Button
+        findViewById<TextView>(R.id.btnSSigned)
+        val button = findViewById(R.id.btnSSigned) as Button
         button.setOnClickListener {
             val intent = Intent(this, NurseKeyInDetails::class.java)
             startActivity(intent)

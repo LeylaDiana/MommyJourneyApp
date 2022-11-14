@@ -10,15 +10,17 @@ import android.widget.TextView
 import android.widget.Toast
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class Register : AppCompatActivity() {
-
-   private lateinit var etEmail: EditText
-  private  lateinit var etConfPass: EditText
-   private lateinit var etPass: EditText
+    lateinit var etEmail: EditText
+    lateinit var etConfPass: EditText
+    private lateinit var etPass: EditText
     private lateinit var btnSignUp: Button
-   private lateinit var tvRedirectLogin: TextView
+    lateinit var tvRedirectLogin: TextView
+
 
 
     private lateinit var auth: FirebaseAuth
@@ -27,18 +29,24 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register2)
 
-        auth = FirebaseAuth.getInstance()
-        etEmail = findViewById(R.id.etEmailAddress)
-        etConfPass = findViewById(R.id.etConSPassword)
-        etPass = findViewById(R.id.etEmailAddress)
-        btnSignUp = findViewById(R.id.btnLogin)
+
+        // View Bindings
+        etEmail = findViewById(R.id.EmailAdressSignUp)
+        etConfPass = findViewById(R.id.ConfirmPasswordSignUp)
+        etPass = findViewById(R.id.PasswordSignUp)
+        btnSignUp = findViewById(R.id.btnSSigned)
+        tvRedirectLogin = findViewById(R.id.tvRedirectLogin)
+
+        // Initialising auth object
+        auth = Firebase.auth
 
         btnSignUp.setOnClickListener {
             signUpUser()
         }
+
         // switching from signUp Activity to Login Activity
         tvRedirectLogin.setOnClickListener {
-            val intent = Intent(this, PregnantMother::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
