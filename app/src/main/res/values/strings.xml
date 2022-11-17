@@ -5,6 +5,8 @@
     <string name="selected_patient">Selected Patient :</string>
     <string name="selected_urinecolor">Selected Urine Color :</string>
     <string name="selected_bplevel">Selected BP Level :</string>
+    <string name="minimum_password" />
+    <string name="auth_failed" />
     <string-array name="Languages">
         <item>2/2/2022</item>
         <item>5/5/2022</item>

@@ -4,85 +4,85 @@ package com.example.mommyjourneyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.text.TextUtils
+import android.view.View
+import android.widget.*
+import com.google.android.gms.tasks.OnCompleteListener
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 
 
 class Register : AppCompatActivity() {
-    lateinit var etEmail: EditText
-    lateinit var etConfPass: EditText
-    private lateinit var etPass: EditText
-    private lateinit var btnSignUp: Button
-    lateinit var tvRedirectLogin: TextView
+
+    private var auth : FirebaseAuth?= null
 
 
 
-    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register2)
 
+//        add my code
+        auth = FirebaseAuth.getInstance()
 
-        // View Bindings
-        etEmail = findViewById(R.id.EmailAdressSignUp)
-        etConfPass = findViewById(R.id.ConfirmPasswordSignUp)
-        etPass = findViewById(R.id.PasswordSignUp)
-        btnSignUp = findViewById(R.id.btnSSigned)
-        tvRedirectLogin = findViewById(R.id.tvRedirectLogin)
 
-        // Initialising auth object
-        auth = Firebase.auth
+        var btnSignUp = findViewById(R.id.sign_in_button) as Button
+        var inputEmail = findViewById(R.id.email) as EditText
+        var inputPassword = findViewById(R.id.password) as EditText
+        var progressBar = findViewById(R.id.progressBar) as ProgressBar
 
-        btnSignUp.setOnClickListener {
-            signUpUser()
-        }
 
-        // switching from signUp Activity to Login Activity
-        tvRedirectLogin.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
 
+
+        btnSignUp!!.setOnClickListener(View.OnClickListener {
+            val email = inputEmail!!.text.toString().trim()
+            val password = inputPassword!!.text.toString().trim()
+
+            if (TextUtils.isEmpty(email)){
+                Toast.makeText(applicationContext,"Enter your email Address!!", Toast.LENGTH_LONG).show()
+                return@OnClickListener
+            }
+            if (TextUtils.isEmpty(password)){
+                Toast.makeText(applicationContext,"Enter your Password",Toast.LENGTH_LONG).show()
+                return@OnClickListener
+            }
+            if (password.length < 6){
+                Toast.makeText(applicationContext,"Password too short, enter mimimum 6 charcters" , Toast.LENGTH_LONG).show()
+                return@OnClickListener
+            }
+            progressBar!!.setVisibility(View.VISIBLE)
+
+            //create user
+            auth!!.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, OnCompleteListener {
+                        task ->
+                    Toast.makeText(this@Register,"createUserWithEmail:onComplete"+task.isSuccessful,Toast.LENGTH_SHORT).show()
+                    progressBar!!.setVisibility(View.VISIBLE)
+
+                    if (!task.isSuccessful){
+                        Toast.makeText(this@Register,"User Not crated",Toast.LENGTH_SHORT).show()
+                        return@OnCompleteListener
+                    }else{
+                        startActivity(Intent(this@Register, MainActivity::class.java))
+                        finish()
+                    }
+
+
+                })
+
+        })
     }
 
-    private fun signUpUser() {
-        val email = etEmail.text.toString()
-        val pass = etPass.text.toString()
-        val confirmPassword = etConfPass.text.toString()
-
-        // check pass
-        if (email.isBlank() || pass.isBlank() || confirmPassword.isBlank()) {
-            Toast.makeText(this, "Email and Password can't be blank", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (pass != confirmPassword) {
-            Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-        // If all credential are correct
-        // We call createUserWithEmailAndPassword
-        // using auth object and pass the
-        // email and pass in it.
-        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        findViewById<TextView>(R.id.progressBar)
+        val progressBar = findViewById(R.id.progressBar) as ProgressBar
+        progressBar!!.setVisibility(View.GONE)
     }
 }
-
 
 
 

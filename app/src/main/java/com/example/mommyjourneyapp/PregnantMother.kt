@@ -1,65 +1,88 @@
 package com.example.mommyjourneyapp
 
+
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+
+import android.text.TextUtils
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+
 import com.google.firebase.auth.FirebaseAuth
+
+
 
 class PregnantMother : AppCompatActivity() {
 
+    private var inputEmail: EditText? = null
+    private var inputPassword:EditText? = null
+    private var btnSignup:Button? =null
+    private var btnLogin :Button?=null
 
-    private lateinit var tvRedirectSignUp: TextView
-    lateinit var etEmail: EditText
-    private lateinit var etPass: EditText
-    lateinit var btnLogin: Button
+    private var progressBar:ProgressBar?=null
+    private var auth:FirebaseAuth?=null
 
-    // Creating firebaseAuth object
-    lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregnant_mother)
-        tvRedirectSignUp = findViewById(R.id.tvRedirectSignUp)
-        btnLogin = findViewById(R.id.btnSSigned)
-        etEmail = findViewById(R.id.EmailAdressSignUp)
-        etPass = findViewById(R.id.etSPassword)
 
-        // initialising Firebase auth object
-        auth = FirebaseAuth.getInstance()
 
-        btnLogin.setOnClickListener {
-            login()
-        }
-
-        tvRedirectSignUp.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
-            startActivity(intent)
-            // using finish() to end the activity
+        if (auth!!.currentUser !=null){
+            startActivity(Intent(this@PregnantMother,MainActivity::class.java))
             finish()
         }
-    }
 
-    private fun login() {
-        val email = etEmail.text.toString()
-        val pass = etPass.text.toString()
-        // calling signInWithEmailAndPassword(email, pass)
-        // function using Firebase auth object
-        // On successful response Display a Toast
-        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_SHORT).show()
-            } else
-                Toast.makeText(this, "Log In failed ", Toast.LENGTH_SHORT).show()
-        }
-    }
+        setContentView(R.layout.activity_pregnant_mother)
+        inputEmail = findViewById(R.id.email) as EditText
+        inputPassword = findViewById(R.id.password) as EditText
 
+        btnLogin = findViewById(R.id.login) as Button
+
+
+        auth = FirebaseAuth.getInstance()
+
+
+        btnLogin!!.setOnClickListener(View.OnClickListener {
+            val email = inputEmail!!.text.toString().trim()
+            val password = inputPassword!!.text.toString().trim()
+
+            if (TextUtils.isEmpty(email)){
+                Toast.makeText(applicationContext,"Please Enter your email.",Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(applicationContext, "Please Enter your Password", Toast.LENGTH_SHORT).show()
+                return@OnClickListener
+            }
+            progressBar!!.setVisibility(View.VISIBLE)
+
+            auth!!.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, OnCompleteListener {
+                        task ->
+                    progressBar!!.setVisibility(View.VISIBLE)
+
+                    if (!task.isSuccessful){
+                        if (password.length < 6){
+                            inputPassword!!.setError(getString(R.string.minimum_password))
+                        }else{
+                            Toast.makeText(this@PregnantMother,getString(R.string.auth_failed),Toast.LENGTH_LONG).show()
+                        }
+                    }else{
+                        startActivity(Intent(this@PregnantMother,MainActivity::class.java))
+                        finish()
+                    }
+                })
+        })
+
+    }
 }
-
-
-
 
 
 
