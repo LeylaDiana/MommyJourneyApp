@@ -21,12 +21,11 @@ import com.google.firebase.auth.FirebaseAuth
 class PregnantMother : AppCompatActivity() {
 
     private var inputEmail: EditText? = null
-    private var inputPassword:EditText? = null
-    private var btnSignup:Button? =null
-    private var btnLogin :Button?=null
+    private var inputPassword: EditText? = null
+    private var btnLogin: Button? = null
 
-    private var progressBar:ProgressBar?=null
-    private var auth:FirebaseAuth?=null
+    private var progressBar: ProgressBar? = null
+    private var auth: FirebaseAuth? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +33,10 @@ class PregnantMother : AppCompatActivity() {
         setContentView(R.layout.activity_pregnant_mother)
 
 
-        if (auth!!.currentUser !=null){
-            startActivity(Intent(this@PregnantMother,MainActivity::class.java))
-            finish()
-        }
+//        if (auth!!.currentUser !=null){
+//            startActivity(Intent(this@PregnantMother,MainActivity::class.java))
+//            finish()
+//        }
 
         setContentView(R.layout.activity_pregnant_mother)
         inputEmail = findViewById(R.id.email) as EditText
@@ -53,32 +52,41 @@ class PregnantMother : AppCompatActivity() {
             val email = inputEmail!!.text.toString().trim()
             val password = inputPassword!!.text.toString().trim()
 
-            if (TextUtils.isEmpty(email)){
-                Toast.makeText(applicationContext,"Please Enter your email.",Toast.LENGTH_SHORT).show()
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(applicationContext, "Please Enter your email.", Toast.LENGTH_SHORT)
+                    .show()
                 return@OnClickListener
             }
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(applicationContext, "Please Enter your Password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Please Enter your Password", Toast.LENGTH_SHORT)
+                    .show()
                 return@OnClickListener
             }
-            progressBar!!.setVisibility(View.VISIBLE)
+
+
+
+
 
             auth!!.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, OnCompleteListener {
-                        task ->
-                    progressBar!!.setVisibility(View.VISIBLE)
+                .addOnCompleteListener(this) { task ->
 
-                    if (!task.isSuccessful){
-                        if (password.length < 6){
+
+                    if (!task.isSuccessful) {
+                        if (password.length < 6) {
                             inputPassword!!.setError(getString(R.string.minimum_password))
-                        }else{
-                            Toast.makeText(this@PregnantMother,getString(R.string.auth_failed),Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(
+                                this@PregnantMother,
+                                getString(R.string.auth_failed),
+                                Toast.LENGTH_LONG
+
+                            ).show()
                         }
-                    }else{
-                        startActivity(Intent(this@PregnantMother,MainActivity::class.java))
+                    } else {
+                        startActivity(Intent(this@PregnantMother, UserDashboard::class.java))
                         finish()
                     }
-                })
+                }
         })
 
     }
