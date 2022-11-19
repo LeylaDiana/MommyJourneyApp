@@ -24,7 +24,7 @@ class PregnantMother : AppCompatActivity() {
     private var inputPassword: EditText? = null
     private var btnLogin: Button? = null
 
-    private var progressBar: ProgressBar? = null
+
     private var auth: FirebaseAuth? = null
 
 
@@ -32,21 +32,11 @@ class PregnantMother : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pregnant_mother)
 
-
-//        if (auth!!.currentUser !=null){
-//            startActivity(Intent(this@PregnantMother,MainActivity::class.java))
-//            finish()
-//        }
-
         setContentView(R.layout.activity_pregnant_mother)
         inputEmail = findViewById(R.id.email) as EditText
         inputPassword = findViewById(R.id.password) as EditText
-
         btnLogin = findViewById(R.id.login) as Button
-
-
         auth = FirebaseAuth.getInstance()
-
 
         btnLogin!!.setOnClickListener(View.OnClickListener {
             val email = inputEmail!!.text.toString().trim()
@@ -63,24 +53,19 @@ class PregnantMother : AppCompatActivity() {
                 return@OnClickListener
             }
 
-
-
-
-
             auth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
 
-
                     if (!task.isSuccessful) {
                         if (password.length < 6) {
-                            inputPassword!!.setError(getString(R.string.minimum_password))
+                            Toast.makeText(applicationContext, "Password Less Than 6", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
-                            Toast.makeText(
-                                this@PregnantMother,
-                                getString(R.string.auth_failed),
-                                Toast.LENGTH_LONG
+                            Toast.makeText(applicationContext, "Wrong Password", Toast.LENGTH_SHORT)
+                                .show()
 
-                            ).show()
+                                getString(R.string.auth_failed)
+
                         }
                     } else {
                         startActivity(Intent(this@PregnantMother, UserDashboard::class.java))
