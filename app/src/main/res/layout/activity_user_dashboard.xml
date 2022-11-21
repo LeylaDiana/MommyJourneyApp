@@ -73,7 +73,7 @@
         app:layout_constraintVertical_bias="0.813" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/MotherPhoto"
         android:layout_width="103dp"
         android:layout_height="132dp"
         android:layout_marginStart="16dp"
@@ -82,8 +82,7 @@
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.235"
-        app:srcCompat="@drawable/megan" />
+        app:layout_constraintVertical_bias="0.235" />
 
     <ListView
         android:id="@+id/userlist"
@@ -97,19 +96,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.234" />
-
-    <TextView
-        android:id="@+id/ViewPregnancyDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Pregnancy Check-Up Details"
-        android:textColor="#A34BA0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735" />
 
     <ImageView
         android:id="@+id/babykickicon"
@@ -129,10 +115,10 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.605" />
 
     <ListView
         android:id="@+id/date"
@@ -140,9 +126,37 @@
         android:layout_height="119dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
+        app:layout_constraintVertical_bias="0.607" />
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="175dp"
+        android:layout_height="39dp"
+        android:backgroundTint="#E967B5"
+        android:text="Edit Personal Record"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.413" />
+
+    <Button
+        android:id="@+id/viewpreg"
+        android:layout_width="304dp"
+        android:layout_height="36dp"
+        android:backgroundTint="#E967B5"
+        android:text="View Pregnancy Check-Up Details"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

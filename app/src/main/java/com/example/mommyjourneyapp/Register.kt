@@ -17,7 +17,12 @@ import org.w3c.dom.Text
 
 class Register : AppCompatActivity() {
 
-    private var auth : FirebaseAuth?= null
+    private var auth: FirebaseAuth? = null
+    private lateinit var button: Button
+    private lateinit var imageView: ImageView
+
+
+        val IMAGE_REQUEST_CODE = 100
 
 
 
@@ -27,12 +32,19 @@ class Register : AppCompatActivity() {
 
 //        add my code
         auth = FirebaseAuth.getInstance()
+         button = findViewById(R.id.button)
+        imageView = findViewById(R.id.imageView)
+
+        button.setOnClickListener{
+            pickImageGallery()
+
+        }
 
 
         var btnSignUp = findViewById(R.id.sign_in_button) as Button
         var inputEmail = findViewById(R.id.email) as EditText
         var inputPassword = findViewById(R.id.password) as EditText
-        var progressBar = findViewById(R.id.progressBar) as ProgressBar
+
 
 
 
@@ -53,14 +65,14 @@ class Register : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Password too short, enter mimimum 6 charcters" , Toast.LENGTH_LONG).show()
                 return@OnClickListener
             }
-            progressBar!!.setVisibility(View.VISIBLE)
+
 
             //create user
             auth!!.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, OnCompleteListener {
                         task ->
                     Toast.makeText(this@Register,"createUserWithEmail:onComplete"+task.isSuccessful,Toast.LENGTH_SHORT).show()
-                    progressBar!!.setVisibility(View.VISIBLE)
+
 
                     if (!task.isSuccessful){
                         Toast.makeText(this@Register,"User Not crated",Toast.LENGTH_SHORT).show()
@@ -76,12 +88,19 @@ class Register : AppCompatActivity() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        findViewById<TextView>(R.id.progressBar)
-        val progressBar = findViewById(R.id.progressBar) as ProgressBar
-        progressBar!!.setVisibility(View.GONE)
+    private fun pickImageGallery (){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_REQUEST_CODE)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
+            imageView.setImageURI(data?.data)
+        }
+    }
+
 }
 
 
