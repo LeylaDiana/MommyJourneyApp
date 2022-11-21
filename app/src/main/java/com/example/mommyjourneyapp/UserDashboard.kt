@@ -1,15 +1,21 @@
 package com.example.mommyjourneyapp
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+
 
 class UserDashboard : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
+
+
+        findViewById<ImageView>(R.id.MotherPhoto)
 
 
 
@@ -57,3 +63,4 @@ class UserDashboard : AppCompatActivity() {
 
     }
 }
+

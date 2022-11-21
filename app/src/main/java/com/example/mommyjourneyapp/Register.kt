@@ -62,7 +62,7 @@ class Register : AppCompatActivity() {
                 return@OnClickListener
             }
             if (password.length < 6){
-                Toast.makeText(applicationContext,"Password too short, enter mimimum 6 charcters" , Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,"Password too short, enter mimimum 6 charcters, include letters" , Toast.LENGTH_LONG).show()
                 return@OnClickListener
             }
 
@@ -75,7 +75,7 @@ class Register : AppCompatActivity() {
 
 
                     if (!task.isSuccessful){
-                        Toast.makeText(this@Register,"User Not crated",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Register,"User Not created",Toast.LENGTH_SHORT).show()
                         return@OnCompleteListener
                     }else{
                         startActivity(Intent(this@Register, MainActivity::class.java))
