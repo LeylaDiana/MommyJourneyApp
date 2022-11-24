@@ -9,10 +9,8 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnCompleteListener
 
 import com.google.firebase.auth.FirebaseAuth
 
@@ -33,8 +31,8 @@ class PregnantMother : AppCompatActivity() {
         setContentView(R.layout.activity_pregnant_mother)
 
         setContentView(R.layout.activity_pregnant_mother)
-        inputEmail = findViewById(R.id.email) as EditText
-        inputPassword = findViewById(R.id.password) as EditText
+        inputEmail = findViewById(R.id.emailregister) as EditText
+        inputPassword = findViewById(R.id.passwordregister) as EditText
         btnLogin = findViewById(R.id.login) as Button
         auth = FirebaseAuth.getInstance()
 
