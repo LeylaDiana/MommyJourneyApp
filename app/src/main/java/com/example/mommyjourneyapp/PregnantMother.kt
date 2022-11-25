@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 
-
 class PregnantMother : AppCompatActivity() {
 
     private var inputEmail: EditText? = null
@@ -56,13 +55,17 @@ class PregnantMother : AppCompatActivity() {
 
                     if (!task.isSuccessful) {
                         if (password.length < 6) {
-                            Toast.makeText(applicationContext, "Password Less Than 6", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                applicationContext,
+                                "Password Less Than 6",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         } else {
                             Toast.makeText(applicationContext, "Wrong Password", Toast.LENGTH_SHORT)
                                 .show()
 
-                                getString(R.string.auth_failed)
+                            getString(R.string.auth_failed)
 
                         }
                     } else {

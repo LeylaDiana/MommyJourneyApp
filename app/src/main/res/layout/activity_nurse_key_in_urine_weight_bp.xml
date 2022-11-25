@@ -134,7 +134,7 @@
             app:layout_constraintVertical_bias="0.39" />
 
         <EditText
-            android:id="@+id/editTextNumberDecimal"
+            android:id="@+id/WeightEdit"
             android:layout_width="110dp"
             android:layout_height="45dp"
             android:ems="10"
@@ -160,7 +160,7 @@
             app:layout_constraintVertical_bias="0.64" />
 
         <EditText
-            android:id="@+id/editTextNumber3"
+            android:id="@+id/HeightEdit"
             android:layout_width="110dp"
             android:layout_height="45dp"
             android:ems="10"
@@ -184,7 +184,7 @@
             app:layout_constraintVertical_bias="0.389" />
 
         <Button
-            android:id="@+id/Next"
+            android:id="@+id/savebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#D585EC"
