@@ -15,7 +15,6 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
     private var auth: FirebaseAuth? = null
 
     private lateinit var save: Button
-
     var databaseReference: DatabaseReference? = null
     var databases: FirebaseDatabase? = null
 
@@ -23,40 +22,66 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse_key_in_urine_weight_bp)
-
+        save = findViewById(R.id.savebtn) as Button
         auth = FirebaseAuth.getInstance()
-        save = findViewById(R.id.savebtn)
 
+        val inputWeight = findViewById(R.id.WeightEdit) as EditText
+        val inputHeight = findViewById(R.id.HeightEdit) as EditText
         databases = FirebaseDatabase.getInstance()
-        databaseReference = databases?.reference!!.child("PregnancyDetailsSelectedUser");
+        databaseReference = databases?.reference!!.child("Pregnancy Data");
+
+
+        val weight = inputWeight!!.text.toString().trim()
+        val height = inputHeight!!.text.toString().trim()
+
+        if (TextUtils.isEmpty(weight)) {
+            Toast.makeText(applicationContext, "Please Enter your weight.", Toast.LENGTH_SHORT)
+                .show()
+
+        }
+        if (TextUtils.isEmpty(height)) {
+            Toast.makeText(applicationContext, "Please Enter your height", Toast.LENGTH_SHORT)
+                .show()
+
+        }
 
 
         val urinecolor = resources.getStringArray(R.array.UrineColor)
-        val bplevel = resources.getStringArray(R.array.BPLevel)
+
+        // access the spinner
         val spinner = findViewById<Spinner>(R.id.urinecolor)
+        if (spinner != null) {
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item, urinecolor
+            )
+            spinner.adapter = adapter
 
-        val save = findViewById(R.id.savebtn) as Button
-        val inputWeight= findViewById(R.id.WeightEdit) as EditText
-        val inputHeight = findViewById(R.id.HeightEdit) as EditText
-        save!!.setOnClickListener(View.OnClickListener {
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+//                        Toast.makeText(
+//                            this@NurseKeyInUrineWeightBP,
+//                            getString(R.string.selected_urinecolor) + " " +
+//                                    "" + urinecolor[position], Toast.LENGTH_SHORT
+//                        ).show()
+                }
 
-            var weight = inputWeight!!.text.toString().trim()
-            var height = inputHeight!!.text.toString().trim()
-
-            if (TextUtils.isEmpty(weight)) {
-                Toast.makeText(applicationContext, "Enter your weight", Toast.LENGTH_LONG)
-                    .show()
-                return@OnClickListener
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
             }
-            if (TextUtils.isEmpty(height)) {
-                Toast.makeText(applicationContext, "Enter your height", Toast.LENGTH_LONG).show()
-                return@OnClickListener
-            }
+            val bplevel = resources.getStringArray(R.array.BPLevel)
 
+            // access the spinner
+            val spinner = findViewById<Spinner>(R.id.bplevel)
             if (spinner != null) {
                 val adapter = ArrayAdapter(
                     this,
-                    android.R.layout.simple_spinner_item, urinecolor
+                    android.R.layout.simple_spinner_item, bplevel
                 )
                 spinner.adapter = adapter
 
@@ -66,67 +91,52 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
                         parent: AdapterView<*>,
                         view: View, position: Int, id: Long
                     ) {
-                        Toast.makeText(
-                            this@NurseKeyInUrineWeightBP,
-                            getString(R.string.selected_urinecolor) + " " +
-                                    "" + urinecolor[position], Toast.LENGTH_SHORT
-                        ).show()
+//                            Toast.makeText(
+//                                this@NurseKeyInUrineWeightBP,
+//                                getString(R.string.selected_bplevel) + " " +
+//                                        "" + bplevel[position], Toast.LENGTH_SHORT
+//                            ).show()
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
                         // write code to perform some action
                     }
                 }
-
-
-                // access the spinner
-                val spinner = findViewById<Spinner>(R.id.bplevel)
-                if (spinner != null) {
-                    val adapter = ArrayAdapter(
-                        this,
-                        android.R.layout.simple_spinner_item, bplevel
-                    )
-                    spinner.adapter = adapter
-
-                    spinner.onItemSelectedListener = object :
-                        AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View, position: Int, id: Long
-                        ) {
-                            Toast.makeText(
-                                this@NurseKeyInUrineWeightBP,
-                                getString(R.string.selected_bplevel) + " " +
-                                        "" + bplevel[position], Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>) {
-
-                        }
-                    }
-                }
             }
+        }
 
-                    val currentUser = auth!!.currentUser
+        save.setOnClickListener {
+            val currentUser = auth!!.currentUser
 
-                    val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
-
-                    Toast.makeText(
-                        this@NurseKeyInUrineWeightBP,
-                        "SavePregnantUserData:onComplete" ,
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    currentUSerDb?.child("Urine Color")?.setValue(getString(R.string.selected_urinecolor))
-                    currentUSerDb?.child("Weight")?.setValue(inputWeight.text.toString())
-                    currentUSerDb?.child("Height")?.setValue(inputHeight.text.toString())
-                    currentUSerDb?.child("BPLevel")?.setValue(getString(R.string.selected_bplevel))
+            val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
 
 
-
-
-                })
+            currentUSerDb?.child("Urine Color")?.setValue(getString(R.string.selected_urinecolor))
+            currentUSerDb?.child("Weight")?.setValue(inputWeight.text.toString())
+            currentUSerDb?.child("Height")?.setValue(inputHeight.text.toString())
+            currentUSerDb?.child("BPLevel")?.setValue(getString(R.string.selected_bplevel))
+            Toast.makeText(applicationContext, "Pregnancy Data saved", Toast.LENGTH_SHORT).show()
         }
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

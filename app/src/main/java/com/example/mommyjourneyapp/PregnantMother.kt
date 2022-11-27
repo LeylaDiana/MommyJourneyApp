@@ -35,6 +35,8 @@ class PregnantMother : AppCompatActivity() {
         btnLogin = findViewById(R.id.login) as Button
         auth = FirebaseAuth.getInstance()
 
+
+
         btnLogin!!.setOnClickListener(View.OnClickListener {
             val email = inputEmail!!.text.toString().trim()
             val password = inputPassword!!.text.toString().trim()
