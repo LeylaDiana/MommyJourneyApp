@@ -84,19 +84,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.235" />
 
-    <ListView
-        android:id="@+id/userlist"
-        android:layout_width="235dp"
-        android:layout_height="133dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
-
     <ImageView
         android:id="@+id/babykickicon"
         android:layout_width="105dp"
@@ -132,20 +119,6 @@
         app:layout_constraintVertical_bias="0.607" />
 
     <Button
-        android:id="@+id/edit"
-        android:layout_width="175dp"
-        android:layout_height="39dp"
-        android:backgroundTint="#E967B5"
-        android:text="Edit Personal Record"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.932"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413" />
-
-    <Button
         android:id="@+id/viewpreg"
         android:layout_width="304dp"
         android:layout_height="36dp"
@@ -158,5 +131,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.728" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user"
+        android:layout_width="254dp"
+        android:layout_height="122dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.247"
+        tools:listitem="@layout/user_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
