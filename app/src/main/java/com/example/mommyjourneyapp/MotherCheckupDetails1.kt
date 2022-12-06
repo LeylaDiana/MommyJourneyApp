@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 
 class MotherCheckupDetails1 : AppCompatActivity() {
 
+    private lateinit var dbref: DatabaseReference
+    private lateinit var userRecyclerview: RecyclerView
+    private lateinit var userArrayList: ArrayList<Users>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +47,15 @@ class MotherCheckupDetails1 : AppCompatActivity() {
                     // write code to perform some action
                 }
             }
+
+            userRecyclerview = findViewById(R.id.userList)
+            userRecyclerview.layoutManager = LinearLayoutManager(this)
+            userRecyclerview.setHasFixedSize(true)
+
+            userArrayList = arrayListOf<Users>()
+            getUserData()
         }
+
         findViewById<Button>(R.id.viewvideos)
         val MotherCheckupDetails1 = findViewById(R.id.viewvideos) as Button
         MotherCheckupDetails1.setOnClickListener {
@@ -50,7 +64,38 @@ class MotherCheckupDetails1 : AppCompatActivity() {
         }
 
     }
+    private fun getUserData() {
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+        dbref.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()) {
+
+                    for (userSnapshot in snapshot.children) {
+
+
+                        val user = userSnapshot.getValue(Users::class.java)
+                        userArrayList.add(user!!)
+
+                    }
+
+                    userRecyclerview.adapter = MyAdapter(userArrayList)
+
+
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
 }
+
 
 
 

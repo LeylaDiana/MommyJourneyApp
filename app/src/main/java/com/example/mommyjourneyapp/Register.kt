@@ -104,11 +104,7 @@ class Register : AppCompatActivity() {
                     val currentUser = auth!!.currentUser
 
                     val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
-                    Toast.makeText(
-                        this@Register,
-                        "createUserWithEmail:onComplete" + task.isSuccessful,
-                        Toast.LENGTH_SHORT
-                    ).show()
+
 
                     currentUSerDb?.child("Full Name")?.setValue(inputFullName.text.toString())
                     currentUSerDb?.child("Birthdate")?.setValue(inputDate.text.toString())
@@ -117,7 +113,7 @@ class Register : AppCompatActivity() {
                     currentUSerDb?.child("Password")?.setValue(inputPassword.text.toString())
 
                     if (!task.isSuccessful) {
-                        Toast.makeText(this@Register, "User Not created", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Register, "User created", Toast.LENGTH_SHORT).show()
                         return@OnCompleteListener
                     } else {
                         startActivity(Intent(this@Register, MainActivity::class.java))

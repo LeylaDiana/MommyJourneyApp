@@ -39,7 +39,7 @@ class ChildBirthVideos : AppCompatActivity() {
         // set the absolute path of the video file which is going to be played
         simpleVideoView!!.setVideoURI(
             Uri.parse("android.resource://"
-                + packageName + "/" + R.raw.gfgvideo))
+                    + packageName + "/" + R.raw.gfgvideo))
 
         simpleVideoView!!.requestFocus()
 

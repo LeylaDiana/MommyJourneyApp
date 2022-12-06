@@ -10,10 +10,11 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.lang.reflect.Array.get
 
 class NurseKeyInUrineWeightBP : AppCompatActivity() {
+    private var position : Int = 3
     private var auth: FirebaseAuth? = null
-
     private lateinit var save: Button
     var databaseReference: DatabaseReference? = null
     var databases: FirebaseDatabase? = null
@@ -28,7 +29,7 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
         val inputWeight = findViewById(R.id.WeightEdit) as EditText
         val inputHeight = findViewById(R.id.HeightEdit) as EditText
         databases = FirebaseDatabase.getInstance()
-        databaseReference = databases?.reference!!.child("Pregnancy Data");
+        databaseReference = databases?.reference!!.child("Users");
 
 
         val weight = inputWeight!!.text.toString().trim()
@@ -107,18 +108,23 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
 
         save.setOnClickListener {
             val currentUser = auth!!.currentUser
-
+            val bplevel = resources.getStringArray(R.array.BPLevel)
+            val urinecolor = resources.getStringArray(R.array.UrineColor)
             val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
 
 
-            currentUSerDb?.child("Urine Color")?.setValue(getString(R.string.selected_urinecolor))
+
+
+            currentUSerDb?.child("Urine Color")?.setValue(urinecolor[position]);
             currentUSerDb?.child("Weight")?.setValue(inputWeight.text.toString())
             currentUSerDb?.child("Height")?.setValue(inputHeight.text.toString())
-            currentUSerDb?.child("BPLevel")?.setValue(getString(R.string.selected_bplevel))
-            Toast.makeText(applicationContext, "Pregnancy Data saved", Toast.LENGTH_SHORT).show()
+            currentUSerDb?.child("BPLevel")?.setValue(bplevel[position])
+            Toast.makeText(applicationContext, "Pregnancy Check-Up Details saved", Toast.LENGTH_SHORT).show()
         }
     }
 }
+
+
 
 
 

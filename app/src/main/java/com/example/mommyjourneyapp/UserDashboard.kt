@@ -47,6 +47,8 @@ class UserDashboard : AppCompatActivity() {
 //        mListView.adapter = arrayAdapter
 //        mListView.setBackgroundColor(Color.parseColor("#E7E0EC"));
 
+
+
         findViewById<Button>(R.id.viewpreg)
         val ViewPregnancyDetails = findViewById(R.id.viewpreg) as Button
         ViewPregnancyDetails.setOnClickListener {
