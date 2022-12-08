@@ -72,7 +72,7 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
 //                            getString(R.string.selected_urinecolor) + " " +
 //                                    "" + urinecolor[position], Toast.LENGTH_SHORT
 //                        ).show()
-                    currentUSerDb?.child("Urine Color")?.setValue(urinecolor[position]);
+                    currentUSerDb?.child("UrineColor")?.setValue(urinecolor[position]);
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
