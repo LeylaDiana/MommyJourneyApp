@@ -64,11 +64,15 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long
                 ) {
+                    val currentUser = auth!!.currentUser
+//
+                    val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
 //                        Toast.makeText(
 //                            this@NurseKeyInUrineWeightBP,
 //                            getString(R.string.selected_urinecolor) + " " +
 //                                    "" + urinecolor[position], Toast.LENGTH_SHORT
 //                        ).show()
+                    currentUSerDb?.child("Urine Color")?.setValue(urinecolor[position]);
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -92,11 +96,16 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
                         parent: AdapterView<*>,
                         view: View, position: Int, id: Long
                     ) {
+                        val currentUser = auth!!.currentUser
+//
+                        val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
+//
 //                            Toast.makeText(
 //                                this@NurseKeyInUrineWeightBP,
 //                                getString(R.string.selected_bplevel) + " " +
 //                                        "" + bplevel[position], Toast.LENGTH_SHORT
 //                            ).show()
+                        currentUSerDb?.child("BPLevel")?.setValue(bplevel[position])
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -108,17 +117,15 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
 
         save.setOnClickListener {
             val currentUser = auth!!.currentUser
-            val bplevel = resources.getStringArray(R.array.BPLevel)
-            val urinecolor = resources.getStringArray(R.array.UrineColor)
+//
             val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
-
-
-
-
-            currentUSerDb?.child("Urine Color")?.setValue(urinecolor[position]);
+//
+//
+//
+//            currentUSerDb?.child("Urine Color")?.setValue(urinecolor[position]);
             currentUSerDb?.child("Weight")?.setValue(inputWeight.text.toString())
             currentUSerDb?.child("Height")?.setValue(inputHeight.text.toString())
-            currentUSerDb?.child("BPLevel")?.setValue(bplevel[position])
+//            currentUSerDb?.child("BPLevel")?.setValue(bplevel[position])
             Toast.makeText(applicationContext, "Pregnancy Check-Up Details saved", Toast.LENGTH_SHORT).show()
         }
     }
