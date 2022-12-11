@@ -106,14 +106,14 @@ class Register : AppCompatActivity() {
                     val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
 
 
-                    currentUSerDb?.child("Full Name")?.setValue(inputFullName.text.toString())
+                    currentUSerDb?.child("FullName")?.setValue(inputFullName.text.toString())
                     currentUSerDb?.child("Birthdate")?.setValue(inputDate.text.toString())
-                    currentUSerDb?.child("IC NO")?.setValue(inputiCNo.text.toString())
+                    currentUSerDb?.child("ICNO")?.setValue(inputiCNo.text.toString())
                     currentUSerDb?.child("Email")?.setValue(inputEmail.text.toString())
                     currentUSerDb?.child("Password")?.setValue(inputPassword.text.toString())
 
                     if (!task.isSuccessful) {
-                        Toast.makeText(this@Register, "User created", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Register, "User not created", Toast.LENGTH_SHORT).show()
                         return@OnCompleteListener
                     } else {
                         startActivity(Intent(this@Register, MainActivity::class.java))

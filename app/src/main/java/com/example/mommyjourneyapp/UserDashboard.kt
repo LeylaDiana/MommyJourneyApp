@@ -6,16 +6,64 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 
 
 class UserDashboard : AppCompatActivity() {
-
+    private lateinit var dbref: DatabaseReference
+    private lateinit var userRecyclerview: RecyclerView
+    private lateinit var userArrayList: ArrayList<Users>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
 
 
         findViewById<ImageView>(R.id.MotherPhoto)
+
+        userRecyclerview = findViewById(R.id.userlist)
+        userRecyclerview.layoutManager = LinearLayoutManager(this)
+        userRecyclerview.setHasFixedSize(true)
+
+        userArrayList = arrayListOf<Users>()
+        getUserData()
+
+    }
+
+    private fun getUserData() {
+
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+        dbref.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+
+                    for (userSnapshot in snapshot.children){
+
+
+                        val user = userSnapshot.getValue(Users::class.java)
+                        userArrayList.add(user!!)
+
+                    }
+
+                    userRecyclerview.adapter = MyAdapter1(userArrayList)
+
+
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+
+
 
 
 
