@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.lang.reflect.Array.get
 
 class NurseKeyInUrineWeightBP : AppCompatActivity() {
-    private var position : Int = 3
+    private var position: Int = 3
     private var auth: FirebaseAuth? = null
     private lateinit var save: Button
     var databaseReference: DatabaseReference? = null
@@ -126,7 +126,20 @@ class NurseKeyInUrineWeightBP : AppCompatActivity() {
             currentUSerDb?.child("Weight")?.setValue(inputWeight.text.toString())
             currentUSerDb?.child("Height")?.setValue(inputHeight.text.toString())
 //            currentUSerDb?.child("BPLevel")?.setValue(bplevel[position])
-            Toast.makeText(applicationContext, "Pregnancy Check-Up Details saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "Pregnancy Check-Up Details saved",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        findViewById<TextView>(R.id.Next)
+        val ViewPregnancyDetails = findViewById(R.id.Next) as Button
+        ViewPregnancyDetails.setOnClickListener {
+            val intent = Intent(this, CreateNewAppoinment::class.java)
+            startActivity(intent)
+
+
         }
     }
 }
