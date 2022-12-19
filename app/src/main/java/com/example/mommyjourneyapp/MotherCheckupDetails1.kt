@@ -48,7 +48,7 @@ class MotherCheckupDetails1 : AppCompatActivity() {
                 }
             }
 
-            userRecyclerview = findViewById(R.id.userList)
+            userRecyclerview = findViewById(R.id.userlist2)
             userRecyclerview.layoutManager = LinearLayoutManager(this)
             userRecyclerview.setHasFixedSize(true)
 

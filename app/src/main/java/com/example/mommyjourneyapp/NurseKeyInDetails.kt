@@ -5,52 +5,76 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 
 class NurseKeyInDetails : AppCompatActivity() {
+    private lateinit var dbref: DatabaseReference
+    private lateinit var userRecyclerview: RecyclerView
+    private lateinit var userArrayList: ArrayList<Users>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        findViewById<TextView>(R.id.UserButton)
+
+
+
         setContentView(R.layout.activity_nurse_key_in_details)
 
 
-        val patientname = resources.getStringArray(R.array.PatientName)
+        userRecyclerview = findViewById(R.id.userlist2)
+        userRecyclerview.layoutManager = LinearLayoutManager(this)
+        userRecyclerview.setHasFixedSize(true)
 
-        // access the spinner
-        val spinner = findViewById<Spinner>(R.id.patientname)
-        if (spinner != null) {
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item, patientname
-            )
-            spinner.adapter = adapter
+        userArrayList = arrayListOf<Users>()
+        getUserData()
 
-            spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View, position: Int, id: Long
-                ) {
-                    Toast.makeText(
-                        this@NurseKeyInDetails,
-                        getString(R.string.selected_patient) + " " +
-                                "" + patientname[position], Toast.LENGTH_SHORT
-                    ).show()
+
+    }
+
+
+    private fun getUserData() {
+//
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+        dbref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()) {
+
+                    for (userSnapshot in snapshot.children) {
+
+
+                        val user = userSnapshot.getValue(Users::class.java)
+                        userArrayList.add(user!!)
+
+                    }
+
+                    userRecyclerview.adapter = MyAdapter2(userArrayList)
+
+
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
             }
 
 
-            findViewById<TextView>(R.id.next)
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+
+
+
             val ViewPregnancyDetails = findViewById(R.id.next) as Button
             ViewPregnancyDetails.setOnClickListener {
                 val intent = Intent(this, NurseKeyInUrineWeightBP::class.java)
                 startActivity(intent)
 
 
-
             }
         }
     }
-}
+
+
