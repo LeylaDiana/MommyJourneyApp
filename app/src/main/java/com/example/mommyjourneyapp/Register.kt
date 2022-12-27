@@ -23,11 +23,10 @@ import com.google.firebase.ktx.Firebase
 class Register : AppCompatActivity() {
 
     private var auth: FirebaseAuth? = null
-
-    private lateinit var button: Button
-    private lateinit var imageView: ImageView
     var databaseReference: DatabaseReference? = null
     var databases: FirebaseDatabase? = null
+    private lateinit var imageView: ImageView
+    private lateinit var button: Button
 
 
     val IMAGE_REQUEST_CODE = 100
