@@ -1,5 +1,6 @@
 package com.example.mommyjourneyapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,6 +45,7 @@ class NurseKeyInDetails : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun getUserData() {
 //
         dbref = FirebaseDatabase.getInstance().getReference("Users")

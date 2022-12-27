@@ -1,6 +1,5 @@
 package com.example.mommyjourneyapp
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +7,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
@@ -15,6 +15,9 @@ class UserDashboard : AppCompatActivity() {
     private lateinit var dbref: DatabaseReference
     private lateinit var userRecyclerview: RecyclerView
     private lateinit var userArrayList: ArrayList<Users>
+    var databaseReference: DatabaseReference? = null
+    var databases: FirebaseDatabase? = null
+    private var auth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_dashboard)
@@ -39,9 +42,9 @@ class UserDashboard : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for (userSnapshot in snapshot.children){
+                    for (userSnapshot in snapshot.children) {
 
 
                         val user = userSnapshot.getValue(Users::class.java)
@@ -66,51 +69,54 @@ class UserDashboard : AppCompatActivity() {
 
 
 
+       val fireBaseTextView2 = findViewById<View>(R.id.date1)
 
-//        var arrayAdapter: ArrayAdapter<*>
-//        val users = arrayOf( "Name:".toString(),
-//            "IC Number: ",
-//            " Date of Birth: ",
-//            "Hospital Name: ")
-//
-//
-//        val  followup = arrayOf( "Follow Up", "Follow Up ",  "Follow Up"  )
-//        val  date = arrayOf( "26/07/2022", "27/5/2022","25/03/1995"
-//        )
-//
-//        val uListView = findViewById<ListView>(R.id.userlist)
-//        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
-//        uListView.adapter = arrayAdapter
-//        uListView.setBackgroundColor(Color.parseColor("#E7E0EC"));
-//
-//
-//        // access the listView from xml file
-//        val ListView = findViewById<ListView>(R.id.followup)
-//        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, followup)
-//        ListView.adapter = arrayAdapter
-//        ListView.setBackgroundColor(Color.parseColor("#E7E0EC"));
-//
-//        val mListView = findViewById<ListView>(R.id.date)
-//        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, date)
-//        mListView.adapter = arrayAdapter
-//        mListView.setBackgroundColor(Color.parseColor("#E7E0EC"));
+        //Write a message to the database
+
+        //Write a message to the database
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("CurrentAppointmentDate")
+
+
+
+        //Display the message from the database
+
+        //Display the message from the database
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    dataSnapshot.getValue(String::class.java)
+                    fireBaseTextView2.toString()
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
+
+
+
 
 
 
         findViewById<Button>(R.id.viewpreg)
-        val ViewPregnancyDetails = findViewById(R.id.viewpreg) as Button
-        ViewPregnancyDetails.setOnClickListener {
-            val intent = Intent(this, MotherCheckupDetails1::class.java)
-            startActivity(intent)
-        }
+            val ViewPregnancyDetails = findViewById(R.id.viewpreg) as Button
+            ViewPregnancyDetails.setOnClickListener {
+                val intent = Intent(this, MotherCheckupDetails1::class.java)
+                startActivity(intent)
+            }
 
-        findViewById<TextView>(R.id.babykickicon)
-        val babykickicon = findViewById(R.id.babykickicon) as ImageView
-        babykickicon.setOnClickListener {
-            val intent = Intent(this, BabyKickCounter::class.java)
-            startActivity(intent)
-        }
+            findViewById<TextView>(R.id.babykickicon)
+            val babykickicon = findViewById(R.id.babykickicon) as ImageView
+            babykickicon.setOnClickListener {
+                val intent = Intent(this, BabyKickCounter::class.java)
+                startActivity(intent)
+            }
 
+        }
     }
-}
+
+
+
+
 
