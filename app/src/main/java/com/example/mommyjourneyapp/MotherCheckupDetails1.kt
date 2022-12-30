@@ -48,51 +48,8 @@ class MotherCheckupDetails1 : AppCompatActivity() {
                 }
             }
 
-            userRecyclerview = findViewById(R.id.userlist2)
-            userRecyclerview.layoutManager = LinearLayoutManager(this)
-            userRecyclerview.setHasFixedSize(true)
 
-            userArrayList = arrayListOf<Users>()
-            getUserData()
         }
-
-        findViewById<Button>(R.id.viewvideos)
-        val MotherCheckupDetails1 = findViewById(R.id.viewvideos) as Button
-        MotherCheckupDetails1.setOnClickListener {
-            val intent = Intent(this, ChildBirthVideos::class.java)
-            startActivity(intent)
-        }
-
-    }
-    private fun getUserData() {
-        dbref = FirebaseDatabase.getInstance().getReference("Users")
-
-        dbref.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()) {
-
-                    for (userSnapshot in snapshot.children) {
-
-
-                        val user = userSnapshot.getValue(Users::class.java)
-                        userArrayList.add(user!!)
-
-                    }
-
-                    userRecyclerview.adapter = MyAdapter(userArrayList)
-
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
     }
 }
 

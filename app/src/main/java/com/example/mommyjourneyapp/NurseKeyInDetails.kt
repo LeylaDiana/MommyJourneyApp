@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firebaserecyclerviewkotlin.MyAdapter
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,58 +26,60 @@ class NurseKeyInDetails : AppCompatActivity() {
     var databases: FirebaseDatabase? = null
     private var auth: FirebaseAuth? = null
 
+    @SuppressLint("SuspiciousIndentation", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
         setContentView(R.layout.activity_nurse_key_in_details)
 
+                userRecyclerview = findViewById(R.id.userList)
+                userRecyclerview.layoutManager = LinearLayoutManager(this)
+                userRecyclerview.setHasFixedSize(true)
 
-        userRecyclerview = findViewById(R.id.userlist2)
-        userRecyclerview.layoutManager = LinearLayoutManager(this)
-        userRecyclerview.setHasFixedSize(true)
+                userArrayList = arrayListOf<Users>()
+                getUserData()
 
-        userArrayList = arrayListOf<Users>()
-        getUserData()
+            }
 
+            @SuppressLint("SuspiciousIndentation")
+            private fun getUserData() {
 
-    }
+                dbref = FirebaseDatabase.getInstance().getReference("Users")
 
+                dbref.addValueEventListener(object : ValueEventListener{
 
-    @SuppressLint("SuspiciousIndentation")
-    private fun getUserData() {
-//
-        dbref = FirebaseDatabase.getInstance().getReference("Users")
+                    override fun onDataChange(snapshot: DataSnapshot) {
 
-        dbref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
 
-                if (snapshot.exists()) {
-
-                    for (userSnapshot in snapshot.children) {
+                            for (userSnapshot in snapshot.children){
 
 
-                        val user = userSnapshot.getValue(Users::class.java)
-                        userArrayList.add(user!!)
+                                val user = userSnapshot.getValue(Users::class.java)
+                                userArrayList.add(user!!)
+
+                            }
+
+                            userRecyclerview.adapter = MyAdapter(userArrayList)
+
+
+                        }
 
                     }
 
-                    userRecyclerview.adapter = MyAdapter2(userArrayList)
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
 
 
-                }
-
-            }
+                })
 
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
 
 
-        })
+
+
+
+
 
       val btnDatePicker = findViewById(R.id.SelectDate) as Button
         btnDatePicker.setOnClickListener {

@@ -25,46 +25,7 @@ class UserDashboard : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.MotherPhoto)
 
-        userRecyclerview = findViewById(R.id.userlist)
-        userRecyclerview.layoutManager = LinearLayoutManager(this)
-        userRecyclerview.setHasFixedSize(true)
 
-        userArrayList = arrayListOf<Users>()
-        getUserData()
-
-    }
-
-    private fun getUserData() {
-
-        dbref = FirebaseDatabase.getInstance().getReference("Users")
-
-        dbref.addValueEventListener(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()) {
-
-                    for (userSnapshot in snapshot.children) {
-
-
-                        val user = userSnapshot.getValue(Users::class.java)
-                        userArrayList.add(user!!)
-
-                    }
-
-                    userRecyclerview.adapter = MyAdapter1(userArrayList)
-
-
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
 
 
 
@@ -75,24 +36,12 @@ class UserDashboard : AppCompatActivity() {
 
         //Write a message to the database
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("CurrentAppointmentDate")
+        val myRef = database.getReference("Users").child("CurrentAppointmentDate").toString()
 
 
 
-        //Display the message from the database
 
-        //Display the message from the database
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    dataSnapshot.getValue(String::class.java)
-                    fireBaseTextView2.toString()
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-
+//
 
 
 

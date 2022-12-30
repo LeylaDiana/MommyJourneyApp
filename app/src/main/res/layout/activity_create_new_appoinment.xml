@@ -7,25 +7,6 @@
     tools:context=".CreateNewAppoinment">
 
     <TextView
-        android:id="@+id/create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="sans-serif-light"
-        android:text="Select New Appointment"
-        android:textColor="#A34BA0"
-        android:textSize="20sp"
-        android:textStyle="normal"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.205"
-        tools:ignore="DuplicateIds" />
-
-    <TextView
         android:id="@+id/textview4"
         android:layout_width="308dp"
         android:layout_height="111dp"
@@ -57,26 +38,26 @@
         tools:ignore="UnknownIdInLayout"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <CalendarView
-        android:id="@+id/calendarView2"
-        style="@android:style/Widget.DeviceDefault.CalendarView"
-        android:layout_width="335dp"
-        android:layout_height="389dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
-
     <Button
-        android:id="@+id/save"
+        android:id="@+id/CreateNewAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="Create New Appoitnment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintVertical_bias="0.273" />
+
+    <Button
+        android:id="@+id/SendNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37" />
 </androidx.constraintlayout.widget.ConstraintLayout>

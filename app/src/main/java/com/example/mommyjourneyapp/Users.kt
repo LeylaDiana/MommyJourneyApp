@@ -11,7 +11,9 @@ data class Users(
     var Birthdate : String? = null,
     var FullName : String? = null,
     var ICNO : String? = null,
-    var  CurrentAppointmentDate : String? = null
+    var  CurrentAppointmentDate : String? = null,
+
+
 
 )
 

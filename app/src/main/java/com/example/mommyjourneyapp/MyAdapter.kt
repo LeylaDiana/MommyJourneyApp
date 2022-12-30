@@ -1,11 +1,12 @@
-package com.example.mommyjourneyapp
-
+package com.example.firebaserecyclerviewkotlin
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mommyjourneyapp.R
+import com.example.mommyjourneyapp.Users
 
 class MyAdapter(private val userList : ArrayList<Users>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -13,7 +14,7 @@ class MyAdapter(private val userList : ArrayList<Users>) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.user_item,
-            parent,false)
+        parent,false)
         return MyViewHolder(itemView)
 
     }
@@ -22,10 +23,9 @@ class MyAdapter(private val userList : ArrayList<Users>) : RecyclerView.Adapter<
 
         val currentitem = userList[position]
 
-        holder.bplevel.text = currentitem.BPLevel
-        holder.height.text = currentitem.Height
-        holder.urinecolor.text = currentitem.UrineColor
-        holder.weight.text = currentitem.Weight
+        holder.firstName.text = currentitem.FullName
+        holder.lastName.text = currentitem.Birthdate
+        holder.age.text = currentitem.ICNO
 
     }
 
@@ -37,10 +37,9 @@ class MyAdapter(private val userList : ArrayList<Users>) : RecyclerView.Adapter<
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        val bplevel : TextView = itemView.findViewById(R.id.tvbplevel)
-        val height : TextView = itemView.findViewById(R.id.tvheight)
-        val urinecolor : TextView = itemView.findViewById(R.id.tvurinecolor)
-        val weight : TextView = itemView.findViewById(R.id.tvweight)
+        val firstName : TextView = itemView.findViewById(R.id.tvfirstName)
+        val lastName : TextView = itemView.findViewById(R.id.tvlastName)
+        val age : TextView = itemView.findViewById(R.id.tvage)
 
     }
 

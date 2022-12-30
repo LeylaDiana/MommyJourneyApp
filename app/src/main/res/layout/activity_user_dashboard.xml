@@ -109,18 +109,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.646" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userlist"
-        android:layout_width="279dp"
-        android:layout_height="101dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.924"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.247"
-        tools:listitem="@layout/user_item2" />
-
     <TextView
         android:id="@+id/currentapt"
         android:layout_width="wrap_content"
@@ -159,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="test"
+        android:text="Test"
         android:textColor="@color/black"
 
         android:textSize="14dp"
