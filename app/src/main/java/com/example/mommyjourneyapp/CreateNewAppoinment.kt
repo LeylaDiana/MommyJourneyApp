@@ -42,6 +42,7 @@ class CreateNewAppoinment : AppCompatActivity() {
     var databaseReference: DatabaseReference? = null
     var databases: FirebaseDatabase? = null
     private var auth: FirebaseAuth? = null
+
     @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,74 +60,48 @@ class CreateNewAppoinment : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel()
-    {
+    private fun createNotificationChannel() {
         val name = "Notification Title"
         val descriptionText = "Notification Description"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(CHANNEL_ID,name,importance).apply {
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
             description = descriptionText
         }
-        val notificationManager: NotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun sendNotification()
-    {
-        val intent = Intent(this,MainActivity::class.java).apply {
+    private fun sendNotification() {
+        val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,0)
-        val bitmap : Bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.newmom)
-        val bitmapLargeIcon : Bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.user)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+//        val bitmap : Bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.newmom)
+        val bitmapLargeIcon: Bitmap =
+            BitmapFactory.decodeResource(applicationContext.resources, R.drawable.pregnancy)
+        val datePicker = MaterialDatePicker.Builder.datePicker().build()
+        datePicker.show(supportFragmentManager, "DatePicker")
+        datePicker.addOnPositiveButtonClickListener {
+            Log.d("DATEPICKER", datePicker.headerText)
+            val dateFormatter = SimpleDateFormat("dd-MM-yyyy")
+            val date = dateFormatter.format(Date(it))
+            val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("MommyJourney")
+                .setContentText("Your Next Appointment is on " + date)
+                .setLargeIcon(bitmapLargeIcon)
+//            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        val builder = NotificationCompat.Builder(this,CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Example Title")
-            .setContentText("Example Description")
-            .setLargeIcon(bitmapLargeIcon)
-            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            with(NotificationManagerCompat.from(this)) {
+                notify(notificationId, builder.build())
+            }
 
-        with(NotificationManagerCompat.from(this)){
-            notify(notificationId,builder.build())
+
+
+
         }
-
-        val btnDatePicker = findViewById(R.id.CreateNewAppointment) as Button
-
-    btnDatePicker.setOnClickListener {
-
-            val datePicker = MaterialDatePicker.Builder.datePicker().build()
-            datePicker.show(supportFragmentManager, "DatePicker")
-            datePicker.addOnPositiveButtonClickListener {
-                Log.d("DATEPICKER", datePicker.headerText)
-                val dateFormatter = SimpleDateFormat("dd-MM-yyyy")
-                val date = dateFormatter.format(Date(it))
-                Toast.makeText(applicationContext,"Selected date : " + date, Toast.LENGTH_LONG).show()
-                databases = FirebaseDatabase.getInstance()
-                databaseReference = databases?.reference!!.child("Users");
-                auth = FirebaseAuth.getInstance()
-                val currentUser = auth!!.currentUser
-
-                val currentUSerDb = databaseReference?.child((currentUser?.uid!!))
-
-
-                currentUSerDb?.child("CreateNewAppointmentDate")?.setValue(date)
-
-
-            }
-            datePicker.addOnNegativeButtonClickListener {
-                Log.d("DATEPICKER", datePicker.headerText)
-
-            }
-            datePicker.addOnCancelListener {
-                Log.d("DATEPICKER", "Date Picker Cancelled")
-            }
-        }
-
-
-
-
     }
 }

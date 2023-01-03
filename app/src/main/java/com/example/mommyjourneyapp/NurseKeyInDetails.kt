@@ -5,11 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.firebaserecyclerviewkotlin.MyAdapter
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -31,51 +28,12 @@ class NurseKeyInDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse_key_in_details)
 
-              val  userRecyclerview = findViewById(R.id.userList) as RecyclerView
-                userRecyclerview.layoutManager = LinearLayoutManager(this)
-                userRecyclerview.setHasFixedSize(true)
-
-                userArrayList = arrayListOf<Users>()
-                getUserData()
-
-            }
 
 
 
 
-            @SuppressLint("SuspiciousIndentation")
-
-            private fun getUserData() {
-
-                dbref = FirebaseDatabase.getInstance().getReference("Users")
-
-                dbref.addValueEventListener(object : ValueEventListener{
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
-                        if (snapshot.exists()){
-
-                            for (userSnapshot in snapshot.children){
 
 
-                                val user = userSnapshot.getValue(Users::class.java)
-                                userArrayList.add(user!!)
-
-                            }
-
-                            userRecyclerview.adapter = MyAdapter(userArrayList)
-
-
-                        }
-
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-
-                })
 
 
 
@@ -104,7 +62,7 @@ class NurseKeyInDetails : AppCompatActivity() {
 
 
                 currentUSerDb?.child("CurrentAppointmentDate")?.setValue(date)
-                userArrayList.clear()
+
 
             }
             datePicker.addOnNegativeButtonClickListener {

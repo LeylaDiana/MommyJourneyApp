@@ -97,17 +97,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.885" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/userList"
-            android:layout_width="327dp"
-            android:layout_height="354dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.557"
-            tools:listitem="@layout/user_item" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
