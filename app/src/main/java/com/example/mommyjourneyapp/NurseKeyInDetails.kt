@@ -28,7 +28,43 @@ class NurseKeyInDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse_key_in_details)
 
+        lateinit var listview:ListView
 
+
+        var mobileArray = arrayOf<String>(
+            "Android",
+            "IPhone",
+            "WindowsMobile",
+            "Blackberry",
+            "WebOS",
+            "Ubuntu",
+            "Windows7",
+            "Max OS X"
+        )
+
+
+            setContentView(R.layout.activity_nurse_key_in_details)
+            listview = findViewById<ListView>(R.id.list)
+
+            val arrayadapter: ArrayAdapter<String> =
+                ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mobileArray)
+            listview.adapter = arrayadapter
+
+
+            listview.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
+
+
+                // value of item that is clicked
+                val selecteditem = adapterView.getItemAtPosition(position) as String
+                val itemIdAtPos = adapterView.getItemIdAtPosition(position)
+                Toast.makeText(
+                    applicationContext,
+                    "click item $selecteditem ",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+
+            }
 
 
 
