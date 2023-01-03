@@ -31,7 +31,7 @@ class NurseKeyInDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse_key_in_details)
 
-                userRecyclerview = findViewById(R.id.userList)
+              val  userRecyclerview = findViewById(R.id.userList) as RecyclerView
                 userRecyclerview.layoutManager = LinearLayoutManager(this)
                 userRecyclerview.setHasFixedSize(true)
 
@@ -40,7 +40,11 @@ class NurseKeyInDetails : AppCompatActivity() {
 
             }
 
+
+
+
             @SuppressLint("SuspiciousIndentation")
+
             private fun getUserData() {
 
                 dbref = FirebaseDatabase.getInstance().getReference("Users")
@@ -100,7 +104,7 @@ class NurseKeyInDetails : AppCompatActivity() {
 
 
                 currentUSerDb?.child("CurrentAppointmentDate")?.setValue(date)
-
+                userArrayList.clear()
 
             }
             datePicker.addOnNegativeButtonClickListener {
