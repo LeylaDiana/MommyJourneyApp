@@ -1,5 +1,6 @@
 package com.example.mommyjourneyapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,43 +16,57 @@ class MotherCheckupDetails1 : AppCompatActivity() {
     private lateinit var userRecyclerview: RecyclerView
     private lateinit var userArrayList: ArrayList<Users>
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pregnancy_checkup_mother_page_1)
-        // access the items of the list
-        val languages = resources.getStringArray(R.array.Languages)
 
-        // access the spinner
-        val spinner = findViewById<Spinner>(R.id.patientname)
-        if (spinner != null) {
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item, languages
-            )
-            spinner.adapter = adapter
+        userRecyclerview = findViewById(R.id.userList2)
+        userRecyclerview.layoutManager = LinearLayoutManager(this)
+        userRecyclerview.setHasFixedSize(true)
 
-            spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View, position: Int, id: Long
-                ) {
-                    Toast.makeText(
-                        this@MotherCheckupDetails1,
-                        getString(R.string.selected_item) + " " +
-                                "" + languages[position], Toast.LENGTH_SHORT
-                    ).show()
+        userArrayList = arrayListOf<Users>()
+        getUserData()
+
+
+    }
+
+    private fun getUserData() {
+
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+        dbref.addValueEventListener(object : ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+
+                    for (userSnapshot in snapshot.children){
+
+
+                        var user = userSnapshot.getValue(Users::class.java)
+                        userArrayList.add(user!!)
+
+
+                    }
+
+                    userRecyclerview.adapter = MyAdapter2(userArrayList)
+
+
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
             }
 
 
+        })
+
         }
     }
-}
+
 
 
 

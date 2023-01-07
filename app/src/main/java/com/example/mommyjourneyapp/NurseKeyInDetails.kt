@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
@@ -28,46 +29,49 @@ class NurseKeyInDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nurse_key_in_details)
 
-        lateinit var listview:ListView
 
 
-        var mobileArray = arrayOf<String>(
-            "Android",
-            "IPhone",
-            "WindowsMobile",
-            "Blackberry",
-            "WebOS",
-            "Ubuntu",
-            "Windows7",
-            "Max OS X"
-        )
+        userRecyclerview = findViewById(R.id.userList)
+        userRecyclerview.layoutManager = LinearLayoutManager(this)
+        userRecyclerview.setHasFixedSize(true)
+
+        userArrayList = arrayListOf<Users>()
+        getUserData()
 
 
-            setContentView(R.layout.activity_nurse_key_in_details)
-            listview = findViewById<ListView>(R.id.list)
+    }
 
-            val arrayadapter: ArrayAdapter<String> =
-                ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mobileArray)
-            listview.adapter = arrayadapter
+    private fun getUserData() {
+
+        dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+        dbref.addValueEventListener(object : ValueEventListener{
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.exists()){
+
+                    for (userSnapshot in snapshot.children){
 
 
-            listview.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
+                        val user = userSnapshot.getValue(Users::class.java)
+                        userArrayList.add(user!!)
+
+                    }
+
+                    userRecyclerview.adapter = MyAdapter(userArrayList)
 
 
-                // value of item that is clicked
-                val selecteditem = adapterView.getItemAtPosition(position) as String
-                val itemIdAtPos = adapterView.getItemIdAtPosition(position)
-                Toast.makeText(
-                    applicationContext,
-                    "click item $selecteditem ",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                }
 
             }
 
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
 
+        })
 
 
 
